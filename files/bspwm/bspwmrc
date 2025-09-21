@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# Kill any existing panel/bar processes
+pkill -x polybar
+
+# Set monitor and desktop configuration
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config remove_disabled_monitors      true
+bspc config merge_overlapping_monitors    true
+
+# Window appearance
+bspc config border_width         2
+bspc config window_gap           8
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config single_monocle       false
+
+# Colors
+bspc config normal_border_color  "#44475a"
+bspc config active_border_color  "#6272a4" 
+bspc config focused_border_color "#bd93f9"
+bspc config presel_feedback_color "#6272a4"
+
+# Monocle mode
+bspc config paddingless_monocle      true
+bspc config borderless_monocle       true
+
+# Mouse behavior and bindings
+bspc config click_to_focus            button1
+bspc config focus_follows_pointer     true
+bspc config pointer_follows_focus     false
+bspc config pointer_follows_monitor   true
+
+# Mouse button bindings (Super + mouse)
+bspc config pointer_modifier mod4
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_side
+bspc config pointer_action3 resize_corner
+
+# Additional mouse settings for better UX
+bspc config ignore_ewmh_focus         false
+bspc config ignore_ewmh_struts        false
+
+# Window rules
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a brave desktop='^1'
+bspc rule -a firefox desktop='^1'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+bspc rule -a Zathura state=tiled
+
+# Auto-start applications
+sxhkd &
+
+# Uncomment if you have a compositor
+picom &
+
+sleep 2
+/home/mhamdi/.config/polybar/launch.sh &
+
+# Set wallpaper (uncomment if you have feh)
+feh --bg-scale ~/Pictures/wallpaper.jpg &
+
+# Start notification daemon (if available)
+dunst &

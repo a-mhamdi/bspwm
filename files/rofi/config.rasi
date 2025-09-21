@@ -1,0 +1,19 @@
+configuration {
+    modes: "drun,run,window";
+    font: "JetBrains Mono 12";
+    show-icons: true;
+    icon-theme: "Papirus";
+    terminal: "alacritty";
+    location: 0;
+    width: 40;
+    lines: 10;
+    disable-history: false;
+    hide-scrollbar: true;
+    sidebar-mode: true;
+    matching: "fuzzy";
+    display-drun: " Apps ";
+    display-run: " Run ";
+    display-window: " Windows ";
+}
+
+@theme "~/.config/rofi/theme.rasi"
