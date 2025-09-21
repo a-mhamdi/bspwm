@@ -55,7 +55,7 @@
     - name: Copy alacritty.toml config file
       copy:
         src: alacritty/alacritty.toml
-        dest: "~{{ ansible_user }}/.config/bspwm/alacritty.toml"
+        dest: "~{{ ansible_user }}/.config/alacritty/alacritty.toml"
         mode: '0755'
 
     # BSPWM
@@ -115,8 +115,8 @@
     
     - name: Copy rofi theme file
       copy:
-        src: rofi/dracula.rasi
-        dest: "~{{ ansible_user }}/.config/rofi/dracula.rasi"
+        src: rofi/theme.rasi
+        dest: "~{{ ansible_user }}/.config/rofi/theme.rasi"
 
     # XINIT
     - name: Create .xinitrc
