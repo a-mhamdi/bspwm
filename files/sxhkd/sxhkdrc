@@ -86,6 +86,39 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}'
 
+# Move focused window to desktop
+super + alt + {1-9,0}
+    bspc node -d '^{1-9,10}'
+
+# Move focused window to next/previous desktop
+super + alt + {Left,Right}
+    bspc node -d {prev,next}.local
+
+# Move focused window to desktop and follow
+super + shift + alt + {1-9,0}
+    bspc node -d '^{1-9,10}' -f; \
+    bspc desktop -f '^{1-9,10}'
+
+# Rotate windows
+super + r
+    bspc node @/ -R 90
+
+# Rotate windows counter-clockwise
+super + shift + r
+    bspc node @/ -R -90
+
+# Rotate focused window only
+super + ctrl + r
+    bspc node -R 90
+
+# Rotate focused window counter-clockwise
+super + ctrl + shift + r
+    bspc node -R -90
+
+# Move focused window to second monitor
+super + shift + m
+    bspc node -m next
+
 #
 # Preselect
 #
