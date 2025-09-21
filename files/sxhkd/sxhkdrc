@@ -176,3 +176,7 @@ super + button4
     bspc node -f prev.local.!hidden.window
 super + button5
     bspc node -f next.local.!hidden.window
+
+# RANGER
+super + e
+	alacritty -e ranger
