@@ -1,0 +1,161 @@
+---
+- name: Install BSPWM, SXHKD, Polybar, and Rofi
+  hosts: linux_distros
+  become: yes
+  vars:
+    common_packages:
+      - bspwm
+      - sxhkd
+      - alacritty
+      - polybar
+      - rofi
+      - feh
+      - picom
+      - xrandr
+      - xinit
+      - openssl
+      - font-awesome   # For polybar icons
+    alpine_extra_packages:
+      - xsetroot
+      - libx11
+    void_extra_packages:
+      - xsetroot
+      - xorg-fonts
+
+  tasks:
+    - name: Update package cache (Alpine)
+      apk:
+        update_cache: yes
+      when: ansible_distribution == "Alpine"
+
+    - name: Update package cache (Void)
+      xbps:
+        update_cache: yes
+      when: ansible_distribution == "Void"
+
+    - name: Install packages (Alpine)
+      apk:
+        name: "{{ common_packages + alpine_extra_packages }}"
+        state: present
+      when: ansible_distribution == "Alpine"
+
+    - name: Install packages (Void)
+      xbps:
+        name: "{{ common_packages + void_extra_packages }}"
+        state: present
+      when: ansible_distribution == "Void"
+
+    # ALACRITTY
+    - name: Create Alacritty config directory
+      file:
+        path: "~{{ ansible_user }}/.config/alacritty"
+        state: directory
+        mode: '0755'
+
+    - name: Copy alacritty.toml config file
+      copy:
+        src: alacritty/alacritty.toml
+        dest: "~{{ ansible_user }}/.config/bspwm/alacritty.toml"
+        mode: '0755'
+
+    # BSPWM
+    - name: Create bspwm config directory
+      file:
+        path: "~{{ ansible_user }}/.config/bspwm"
+        state: directory
+        mode: '0755'
+
+    - name: Copy basic bspwmrc
+      copy:
+        src: bspwm/bspwmrc
+        dest: "~{{ ansible_user }}/.config/bspwm/bspwmrc"
+        mode: '0755'
+
+    # XSHKD
+    - name: Create sxhkd config directory
+      file:
+        path: "~{{ ansible_user }}/.config/sxhkd"
+        state: directory
+        mode: '0755'
+
+    - name: Copy basic sxhkdrc
+      copy:
+        src: sxhkd/sxhkdrc
+        dest: "~{{ ansible_user }}/.config/sxhkd/sxhkdrc"
+
+    # POLYBAR
+    - name: Create polybar config directory
+      file:
+        path: "~{{ ansible_user }}/.config/polybar"
+        state: directory
+        mode: '0755'
+
+    - name: Copy polybar config file
+      copy:
+        src: polybar/config.ini
+        dest: "~{{ ansible_user }}/.config/polybar/config.ini"
+    
+    - name: Copy polybar launch file
+      copy:
+        src: polybar/launch.sh
+        dest: "~{{ ansible_user }}/.config/polybar/launch.sh"
+        mode: '0755'
+
+    # ROFI
+    - name: Create rofi config directory
+      file:
+        path: "~{{ ansible_user }}/.config/rofi"
+        state: directory
+        mode: '0755'
+
+    - name: Copy rofi config file
+      copy:
+        src: rofi/config.rasi
+        dest: "~{{ ansible_user }}/.config/rofi/config.rasi"
+    
+    - name: Copy rofi theme file
+      copy:
+        src: rofi/dracula.rasi
+        dest: "~{{ ansible_user }}/.config/rofi/dracula.rasi"
+
+    # XINIT
+    - name: Create .xinitrc
+      copy:
+        content: |
+          #!/bin/sh
+          exec bspwm
+        dest: "~{{ ansible_user }}/.xinitrc"
+        mode: '0755'
+
+    - name: Verify bspwm installation
+      command: which bspwm
+      register: bspwm_check
+      failed_when: bspwm_check.rc != 0
+
+    - name: Verify sxhkd installation
+      command: which sxhkd
+      register: sxhkd_check
+      failed_when: sxhkd_check.rc != 0
+
+    - name: Verify polybar installation
+      command: which polybar
+      register: polybar_check
+      failed_when: polybar_check.rc != 0
+
+    - name: Verify rofi installation
+      command: which rofi
+      register: rofi_check
+      failed_when: rofi_check.rc != 0
+
+    - name: Display installation summary
+      debug:
+        msg: |
+          BSPWM installation completed successfully!
+          Installed packages:
+          - bspwm: {{ bspwm_check.stdout }}
+          - sxhkd: {{ sxhkd_check.stdout }}
+          - polybar: {{ polybar_check.stdout }}
+          - rofi: {{ rofi_check.stdout }}
+          
+          Configuration files created in ~/.config/
+          Start with: startx
