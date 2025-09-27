@@ -180,3 +180,7 @@ super + button5
 # RANGER
 super + e
 	alacritty -e ranger
+
+# SCREENSHOTS
+Print
+    flameshot gui

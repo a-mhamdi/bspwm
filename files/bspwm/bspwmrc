@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# MEGA SYNC
+megasync &
+
 # Kill any existing panel/bar processes
 pkill -x polybar
 
@@ -44,8 +47,9 @@ bspc config ignore_ewmh_focus         false
 bspc config ignore_ewmh_struts        false
 
 # Window rules
+bspc rule -a megasync desktop='^1'
 # bspc rule -a Brave-browser desktop='^1' # follow=on
-bspc rule -a firefox desktop='^1' follow=on
+# bspc rule -a firefox desktop='^1' follow=on
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
@@ -59,6 +63,7 @@ picom &
 
 sleep 2
 /home/mhamdi/.config/polybar/launch.sh &
+pkill -USR1 -x sxhkd
 
 # Set wallpaper (uncomment if you have feh)
 feh --bg-scale ~/Pictures/wallpaper.jpg &
