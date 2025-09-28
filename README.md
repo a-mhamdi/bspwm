@@ -2,6 +2,8 @@
 
 A complete `BSPWM` (**Binary Space Partitioning Window Manager**) setup with Ansible automation for easy deployment across different Linux distributions.
 
+![SCREENSHOT](./SCREENSHOT.png)
+
 <!--
 ## 🚀 Features
 
@@ -142,5 +144,3 @@ bspc wm -r
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-**Happy tiling! 🪟**
