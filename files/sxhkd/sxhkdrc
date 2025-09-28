@@ -159,6 +159,10 @@ super + {Left,Down,Up,Right}
 XF86Audio{RaiseVolume,LowerVolume,Mute}
     amixer {set Master 5%+,set Master 5%-,set Master toggle}
 
+# Mute/unmute microphone (using amixer, adjust device if needed)
+XF86AudioMicMute
+    amixer set Capture toggle
+
 # Brightness controls (if you have brightnessctl)
 XF86MonBrightness{Up,Down}
     brightnessctl set {+10%,10%-}
@@ -180,6 +184,9 @@ super + button5
 # RANGER
 super + e
 	alacritty -e ranger
+
+super + d
+    dolphin
 
 # SCREENSHOTS
 Print
