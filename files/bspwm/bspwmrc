@@ -56,17 +56,19 @@ bspc rule -a Screenkey manage=off
 bspc rule -a Zathura state=tiled
 
 # Auto-start applications
-sxhkd &
-
-# Uncomment if you have a compositor
 picom &
-
-sleep 2
+sleep 1
 /home/mhamdi/.config/polybar/launch.sh &
-pkill -USR1 -x sxhkd
 
-# Set wallpaper (uncomment if you have feh)
+# Set wallpaper
 feh --bg-scale ~/Pictures/wallpaper.jpg &
 
-# Start notification daemon (if available)
+# Restart `sxhkd`
+pkill -USR1 -x sxhkd # Kill any existing `sxhkd` instances
+sleep 1
+sxhkd &
+
+xdotool key --clearmodifiers Num_Lock
+
+# Start notification daemon
 dunst &

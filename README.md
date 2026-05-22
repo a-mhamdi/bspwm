@@ -1,22 +1,10 @@
-# BSPWM Configuration with Ansible
+# BSPWM Configuration
 
-A complete `BSPWM` (**Binary Space Partitioning Window Manager**) setup with Ansible automation for easy deployment across different Linux distributions.
+A complete `BSPWM` (**Binary Space Partitioning Window Manager**) setup.
 
-![SCREENSHOT](./SCREENSHOT.png)
+![bspwm](./bspwm.png)
 
-<!--
-## 🚀 Features
-
-- **Complete BSPWM Setup**: Window manager with tiling, floating, and monocle modes
-- **Polybar Integration**: Modern status bar with BSPWM workspace indicators
-- **Rofi Launcher**: Application launcher and window switcher
-- **SXHKD Hotkeys**: Comprehensive keyboard shortcuts
-- **Dunst Notifications**: Desktop notification daemon
-- **Ansible Automation**: Deploy to multiple Linux distributions
-- **Multi-Distribution Support**: Alpine Linux, Void Linux, and more
--->
-
-## 📦 Included Components
+## Included Components
 
 - **BSPWM**: Tiling window manager
 - **SXHKD**: Hotkey daemon for keyboard shortcuts
@@ -26,37 +14,17 @@ A complete `BSPWM` (**Binary Space Partitioning Window Manager**) setup with Ans
 - **Picom**: Compositor for visual effects
 - **Alacritty**: Terminal emulator
 
-## 🛠️ Quick Start
+## Quick Start
 
 ### Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone git@gtihub.com:a-mhamdi/bspwm
-   cd bspwm
-   ```
+**Clone the repository**:
+```bash
+git clone git@gtihub.com:a-mhamdi/bspwm
+cd bspwm
+```
 
-2. **Configure your inventory**:
-   Edit `inventory.ini` to match your target machines:
-   ```ini
-   [void]
-   void ansible_host=your-void-host ansible_user=your-user ansible_ssh_private_key_file=~/.ssh/void
-
-   [alpine]
-   alpine ansible_host=your-alpine-host ansible_user=your-user ansible_ssh_private_key_file=~/.ssh/alpine
-   ```
-
-3. **Run the playbook**:
-   ```bash
-   ansible-playbook -i inventory.ini playbook.yml
-   ```
-
-4. **Start the desktop environment**:
-   ```bash
-   startx
-   ```
-
-## ⌨️ Key Bindings
+## Key Bindings
 
 | Key Combination | Action |
 |----------------|--------|
@@ -75,7 +43,7 @@ A complete `BSPWM` (**Binary Space Partitioning Window Manager**) setup with Ans
 | `Super + Alt + Q` | Quit BSPWM |
 | `Super + Alt + R` | Restart BSPWM |
 
-## 📁 Configuration Files
+## Configuration Files
 
 The playbook creates the following configuration files:
 
@@ -88,7 +56,7 @@ The playbook creates the following configuration files:
 - `~/.config/dunst/dunstrc` - Notification daemon configuration
 - `~/.xinitrc` - X11 startup script
 
-## 🎨 Customization
+## Customization
 
 ### Colors and Themes
 - Edit `~/.config/bspwm/bspwmrc` for window colors and borders
@@ -100,7 +68,7 @@ Edit `~/.config/sxhkd/sxhkdrc` and reload with `Super + Escape`
 
 ### Polybar Modules
 The default setup includes:
-- BSPWM workspace indicators
+- `BSPWM` workspace indicators
 - System date and time
 - Notification tray
 
@@ -115,7 +83,7 @@ The default setup includes:
 - `feh` - Image viewer (for wallpapers)
 - `font-awesome` - Icon fonts
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -139,7 +107,7 @@ ps aux | grep sxhkd
 bspc wm -r
 ```
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
