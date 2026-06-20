@@ -10,10 +10,6 @@ super + space
 alt + Tab
 	rofi -show window
 
-# Reload sxhkd config
-super + Escape
-	pkill -USR1 -x sxhkd
-
 #
 # bspwm hotkeys
 #
@@ -77,8 +73,8 @@ super + {o,i}
 	bspc wm -h on
 
 # Focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}'
 
 # Move focused window to desktop
 super + alt + {1-9,0}
@@ -89,7 +85,7 @@ super + alt + {Left,Right}
 	bspc node -d {prev,next}.local
 
 # Move focused window to desktop and follow
-super + shift + alt + {1-9,0}
+super + shift + {1-9,0}
 	bspc node -d '^{1-9,10}' -f; \
 	bspc desktop -f '^{1-9,10}'
 
@@ -107,11 +103,7 @@ super + shift + m
 
 # Focus second monitor
 super + m
-	bspc monitor --focus next
-	# bspc monitor "HDMI-1" --focus
-
-# or
-bspc monitor --focus prev
+    bspc monitor -f next
 
 #
 # Preselect
