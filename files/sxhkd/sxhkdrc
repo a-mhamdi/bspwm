@@ -1,8 +1,6 @@
 # Terminal emulator
 super + Return
 	alacritty
-# or: xterm
-# or: st
 
 # Program launcher
 super + space
@@ -24,16 +22,13 @@ super + Escape
 super + shift + {q,r}
 	bspc {quit,wm -r}
 
-# Close and kill window
-super + {_,shift + }w
-	bspc node -{c,k}
+# Kill window
+super + w
+	bspc node -k
 
+# Close window
 super + q
-	bspc node -c
-
-# Alternate between the tiled and monocle layout
-super + m
-	bspc desktop -l next
+    bspc node -c
 
 # Send the newest marked node to the newest preselected node
 super + y
@@ -43,12 +38,9 @@ super + y
 super + g
 	bspc node -s biggest.window
 
-# State/flags
-#
-
-# Set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+# Toggle the focused node between floating and tiled
+super + f
+	bspc node -t ~fullscreen
 
 # Set the node flags
 super + ctrl + {m,x,y,z}
@@ -113,6 +105,14 @@ super + ctrl + r
 super + shift + m
 	bspc node -m next
 
+# Focus second monitor
+super + m
+	bspc monitor --focus next
+	# bspc monitor "HDMI-1" --focus
+
+# or
+bspc monitor --focus prev
+
 #
 # Preselect
 #
@@ -165,15 +165,15 @@ XF86MonBrightness{Up,Down}
 # Mouse bindings
 #
 
-# Middle-click to close window
-button2
-	bspc node -c
-
 # Super + scroll to change window focus
 super + button4
 	bspc node -f prev.local.!hidden.window
 super + button5
 	bspc node -f next.local.!hidden.window
+
+# THUNAR
+ctrl + alt + h
+    thunar
 
 # RANGER
 super + e
