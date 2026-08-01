@@ -24,7 +24,7 @@ super + w
 
 # Close window
 super + q
-    bspc node -c
+	bspc node -c
 
 # Send the newest marked node to the newest preselected node
 super + y
@@ -35,6 +35,10 @@ super + g
 	bspc node -s biggest.window
 
 # Toggle the focused node between floating and tiled
+super + shift + f
+	bspc node -t ~floating
+
+# Toggle fullscreen
 super + f
 	bspc node -t ~fullscreen
 
@@ -67,35 +71,30 @@ super + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # Focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+super + o
+	bspc wm -h off; bspc node older -f; bspc wm -h on
+super + i
+	bspc wm -h off; bspc node newer -f; bspc wm -h on
 
 # Focus or send to the given desktop
-super + {1-9,0}
+super + {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
 	bspc desktop -f '^{1-9,10}'
 
-# Move focused window to desktop
-super + alt + {1-9,0}
-	bspc node -d '^{1-9,10}'
+# Move focused window to desktop and follow
+super + alt + {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
+	bspc node -d '^{1-9,10}' -f
 
 # Move focused window to next/previous desktop
 super + alt + {Left,Right}
 	bspc node -d {prev,next}.local
 
-# Move focused window to desktop and follow
-super + shift + {1-9,0}
-	bspc node -d '^{1-9,10}' -f; \
-	bspc desktop -f '^{1-9,10}'
-
-# Rotate windows
+# Rotate root tree clockwise
 super + alt + r
 	bspc node @/ -R 90
 
-# Rotate focused window only
+# Rotate focused subtree counter-clockwise
 super + ctrl + r
-	bspc node @/ -R -90
+	bspc node @focused -R -90
 
 # Move focused window to second monitor
 super + shift + m
@@ -103,7 +102,7 @@ super + shift + m
 
 # Focus second monitor
 super + m
-    bspc monitor -f next
+	bspc monitor -f next
 
 #
 # Preselect
@@ -118,7 +117,7 @@ super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
 # Cancel the preselection for the focused node
-super + ctrl + space
+super + Escape
 	bspc node -p cancel
 
 # Cancel the preselection for the focused desktop
@@ -141,15 +140,19 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# Volume controls (if you have alsa-utils)
+#
+# Media / hardware keys
+#
+
+# Volume controls
 XF86Audio{RaiseVolume,LowerVolume,Mute}
 	amixer {set Master 5%+,set Master 5%-,set Master toggle}
 
-# Mute/unmute microphone (using amixer, adjust device if needed)
+# Mute/unmute microphone
 XF86AudioMicMute
 	amixer set Capture toggle
 
-# Brightness controls (if you have brightnessctl)
+# Brightness controls
 XF86MonBrightness{Up,Down}
 	brightnessctl set {+10%,10%-}
 
@@ -163,14 +166,18 @@ super + button4
 super + button5
 	bspc node -f next.local.!hidden.window
 
-# THUNAR
-ctrl + alt + h
-    thunar
+#
+# Applications
+#
 
-# RANGER
+# File manager (GUI)
+ctrl + alt + h
+	thunar
+
+# File manager (terminal)
 super + e
 	alacritty -e ranger
 
-# SCREENSHOTS
+# Screenshots
 Print
 	flameshot gui
