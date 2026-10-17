@@ -80,9 +80,9 @@ super + i
 super + {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
 	bspc desktop -f '^{1-9,10}'
 
-# Move focused window to desktop and follow
+# Move focused window to desktop. Don't follow
 super + alt + {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
-	bspc node -d '^{1-9,10}' -f
+	bspc node -d '^{1-9,10}'
 
 # Move focused window to next/previous desktop
 super + alt + {Left,Right}

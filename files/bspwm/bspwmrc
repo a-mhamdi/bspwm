@@ -1,13 +1,10 @@
 #!/bin/sh
 
-# MEGA SYNC
-pgrep -x megasync || megasync &
-
 # Set monitor and desktop configuration
 bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10
 
-bspc config remove_disabled_monitors      true
-bspc config merge_overlapping_monitors    true
+# bspc config remove_disabled_monitors      true
+# bspc config merge_overlapping_monitors    true
 
 # Window appearance
 bspc config border_width         2
@@ -47,28 +44,26 @@ bspc config ignore_ewmh_struts        false
 # `xprop | grep WM_CLASS`
 bspc rule -a megasync desktop='^1'
 bspc rule -a Brave-browser desktop='^2' follow=on
-# bspc rule -a firefox desktop='^1' follow=on
+bspc rule -a dev.zed.Zed desktop='^5' follow=on
+bspc rule -a org.mozilla.firefox desktop='^10' follow=on
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Zathura state=tiled
 
-# Auto-start applications
+# Helpers
+feh --bg-scale ~/Pictures/wallpaper.jpg &
 pgrep -x picom || picom &
-
-# Set wallpaper
-feh --bg-scale ~/Pictures/wallpaper.jpg
-
-# Restart sxhkd
-pkill -x sxhkd
-sleep 0.5
-sxhkd &
-
-# Restart polybar via existing launch script
-sleep 0.3
-/home/mhamdi/.config/polybar/launch.sh
-
-xdotool key --clearmodifiers Num_Lock
-
-# Start notification daemon
 pgrep -x dunst || dunst &
+~/.config/polybar/launch.sh &
+
+pkill -x sxhkd; sxhkd &
+
+(sleep 5 && pgrep -x megasync || megasync) &
+
+numlockx on & # xdotool key --clearmodifiers Num_Lock &
+
+# Disable screen blanking and DPMS
+xset s off
+xset s noblank
+xset -dpms
